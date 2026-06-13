@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh 'cd /Users/nishantsingh/Downloads/Playwright && source venv/bin/activate && pytest tests/test_login.py -k "test_valid_login" --override-ini="addopts=--browser chromium" --headless'
+                sh 'cd /Users/nishantsingh/Downloads/Playwright && source venv/bin/activate && pytest tests/test_login.py -k "test_valid_login" --override-ini="addopts=--browser chromium"'
             }
         }
     }

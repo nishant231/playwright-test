@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.0, pytest-9.0.3, pluggy-1.6.0
+rootdir: /Users/nishantsingh/Downloads/Playwright
+configfile: pytest.ini
+testpaths: tests
+plugins: metadata-3.1.1, html-4.2.0, base-url-2.1.0, playwright-0.8.0
+collected 8 items
+
+tests/API/test_api.py .                                                  [ 12%]
+tests/test_data.py .                                                     [ 25%]
+tests/test_google.py .                                                   [ 37%]
+tests/test_login.py ..                                                   [ 62%]
+tests/test_recorded.py .                                                 [ 75%]
+tests/test_data.py ..                                                    [100%]
+
+- Generated html report: file:///Users/nishantsingh/Downloads/Playwright/reports/report.html -
+============================== 8 passed in 39.08s ==============================

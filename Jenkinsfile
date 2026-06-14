@@ -19,10 +19,10 @@ pipeline {
         }
         stage('Upload Report'){
             steps {
+                sh 'cp -r /Users/nishantsingh/Downloads/Playwright/allure-results ${WORKSPACE}/allure-results'
                 allure([
-                    results: [[path: '/Users/nishantsingh/Downloads/Playwright/allure-results']]
+                    results: [[path: 'allure-results']]
                 ])
-
             }
         }
     }

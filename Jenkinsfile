@@ -13,13 +13,13 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh 'cd /Users/nishantsingh/Downloads/Playwright && source venv/bin/activate && pytest tests/test_login.py -k "test_valid_login" --override-ini="addopts=--browser chromium" --alluredir=allure-results'
+                sh 'cd /Users/nishantsingh/Downloads/Playwright && source venv/bin/activate && pytest tests/test_login.py -k "test_valid_login" --override-ini="addopts=--browser chromium" --alluredir=/Users/nishantsingh/Downloads/Playwright/allure-results'
             }
         }
         stage('Upload Report'){
             steps {
                 allure([
-                    results: [[path: 'allure-results']]
+                    results: [[path: '/Users/nishantsingh/Downloads/Playwright/allure-results']]
                 ])
 
             }

@@ -25,7 +25,7 @@ jobs:
         run: playwright install chromium
 
       - name: Run login test
-        run: pytest tests/test_login.py -k "test_valid_login" -v --override-ini="addopts=--browser webkit"
+        run: pytest tests/test_login.py -k "test_valid_login" -v --override-ini="addopts=--browser chromium"
 
   test-data:
     runs-on: ubuntu-latest
@@ -46,4 +46,4 @@ jobs:
         run: playwright install chromium
 
       - name: Run data test
-        run: pytest tests/test_data.py -v --override-ini="addopts=--browser webkit"
+        run: pytest tests/test_data.py -v --override-ini="addopts=--browser chromium"

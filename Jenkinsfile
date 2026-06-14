@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'cd /Users/nishantsingh/Downloads/Playwright && source venv/bin/activate && pip install playwright pytest-playwright pytest-html'
+                sh 'cd /Users/nishantsingh/Downloads/Playwright && source venv/bin/activate && pip install playwright pytest-playwright pytest-html allure-pytest'
             }
         }
         stage('Install Browsers') {
@@ -13,7 +13,15 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh 'cd /Users/nishantsingh/Downloads/Playwright && source venv/bin/activate && pytest tests/test_login.py -k "test_valid_login" --override-ini="addopts=--browser chromium"'
+                sh 'cd /Users/nishantsingh/Downloads/Playwright && source venv/bin/activate && pytest tests/test_login.py -k "test_valid_login" --override-ini="addopts=--browser chromium" --alluredir=allure-results'
+            }
+        }
+        stage('Upload Report'){
+            steps {
+                allure([
+                    results: [[path: 'allure-results']]
+                ])
+
             }
         }
     }

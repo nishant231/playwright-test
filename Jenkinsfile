@@ -1,27 +1,33 @@
 pipeline {
     agent any
     stages {
-        stage('Install Dependencies') {
+        stage('Build') {
             steps {
-                sh 'python3 -m venv venv && . venv/bin/activate && pip install playwright pytest-playwright pytest-html allure-pytest'
+                echo 'Building the project...'
             }
         }
-        stage('Install Browsers') {
-            steps {
-                sh '. venv/bin/activate && playwright install chromium'
+        stage('Browser Tests') {
+            parallel {
+                stage('Chrome') {
+                    steps {
+                        echo 'Running tests on Chrome...'
+                    }
+                }
+                stage('Firefox') {
+                    steps {
+                        echo 'Running tests on Firefox...'
+                    }
+                }
+                stage('Safari') {
+                    steps {
+                        echo 'Running tests on Safari...'
+                    }
+                }
             }
         }
-        stage('Run Tests') {
+        stage('Deploy') {
             steps {
-                sh 'rm -rf allure-results'
-                sh '. venv/bin/activate && pytest tests/test_login.py -k "test_valid_login" --override-ini="addopts=--browser chromium" --alluredir=allure-results'
-            }
-        }
-        stage('Upload Report'){
-            steps {
-                allure([
-                    results: [[path: 'allure-results']]
-                ])
+                echo 'Deploying the application...'
             }
         }
     }

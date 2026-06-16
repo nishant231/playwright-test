@@ -3,23 +3,22 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'cd /Users/nishantsingh/Downloads/Playwright && source venv/bin/activate && pip install playwright pytest-playwright pytest-html allure-pytest'
+                sh 'python3 -m venv venv && . venv/bin/activate && pip install playwright pytest-playwright pytest-html allure-pytest'
             }
         }
         stage('Install Browsers') {
             steps {
-                sh 'cd /Users/nishantsingh/Downloads/Playwright && source venv/bin/activate && playwright install chromium'
+                sh '. venv/bin/activate && playwright install chromium'
             }
         }
         stage('Run Tests') {
             steps {
-                sh 'rm -rf /Users/nishantsingh/Downloads/Playwright/allure-results'
-                sh 'cd /Users/nishantsingh/Downloads/Playwright && source venv/bin/activate && pytest tests/test_login.py -k "test_valid_login" --override-ini="addopts=--browser chromium" --alluredir=/Users/nishantsingh/Downloads/Playwright/allure-results'
+                sh 'rm -rf allure-results'
+                sh '. venv/bin/activate && pytest tests/test_login.py -k "test_valid_login" --override-ini="addopts=--browser chromium" --alluredir=allure-results'
             }
         }
         stage('Upload Report'){
             steps {
-                sh 'cp -r /Users/nishantsingh/Downloads/Playwright/allure-results ${WORKSPACE}/allure-results'
                 allure([
                     results: [[path: 'allure-results']]
                 ])
